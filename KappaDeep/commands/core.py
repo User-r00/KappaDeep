@@ -12,7 +12,6 @@ __all__ = ['Command']
 
 class Command:
     def __init__(self, name, callback, **kwargs):
-        print('Creating Command class instance.')
         self.name = name
         if not isinstance(name, str):
             raise TypeError('Command name must be a string.')
@@ -33,7 +32,6 @@ class Command:
 
 class GroupMixin:
     def __init__(self, **kwargs):
-        print('Creating GroupMixin class instance.')
         self.commands = {}
         super().__init__(**kwargs)
 

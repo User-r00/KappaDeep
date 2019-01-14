@@ -17,7 +17,6 @@ class Client:
     This class is used to interact with the Twitch IRC chat.'''
 
     def __init__(self, *, loop=None, **options):
-        print('Creating Class client instance.')
         self.loop = asyncio.get_event_loop() if loop is None else loop
         self.irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self._closed = asyncio.Event(loop=self.loop)
@@ -32,19 +31,33 @@ class Client:
         self.irc.send(f'PASS {config.TWITCH_TOKEN}\r\n'.encode('utf-8'))
         self.irc.send(f'NICK {config.NICK}\r\n'.encode('utf-8'))
         self.irc.send(f'JOIN #{config.CHAN}\r\n'.encode('utf-8'))
-        print('Connected to Twitch.')
-        self.say('Beep b00p. I\'m a robot.')
+        self.say('I\'m here to touch butts and party.')
+
+        while not self.is_closed:
+            response = self.receive()
+            self.respond_to_ping(response)
+            if response:
+                print(response)
+            sleep(1)
 
     def say(self, msg):
-        print('Saying message...')
         self.irc.send(f'PRIVMSG #{config.CHAN} :{msg}\r\n'.encode('utf-8'))
 
-    @asyncio.coroutine
     def receive(self):
-        message = self.irc.recv(1024).decode('utf-8')
-        return message
+        message = self.irc.recv(2040).decode('utf-8')
+        print(message)
 
-    async def start(self, *args, **kwargs):
+    def is_ping(self, message):
+        if message.startswith('PING'):
+            self.respond_to_ping(message)
+        else:
+            return False
+
+    def respond_to_ping(self, message):
+        print('PONGING')
+        self.irc.send('PONG :tmi.twitch.tv\r\n'.encode('utf-8'))
+
+    def start(self, *args, **kwargs):
         self.connect_to_twitch()
 
     def run(self, *args, **kwargs):
