@@ -1,0 +1,13 @@
+*.png
+*.psd
+*.pyc
+*.pyo
+*.log
+*.json
+config.py
+.DS_Store
+*.otf
+*.ttf
+*.db
+__pycache__
+*/__pycache__
