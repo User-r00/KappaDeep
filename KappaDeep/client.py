@@ -54,7 +54,6 @@ class Client:
             return False
 
     def respond_to_ping(self, message):
-        print('PONGING')
         self.irc.send('PONG :tmi.twitch.tv\r\n'.encode('utf-8'))
 
     def start(self, *args, **kwargs):
