@@ -19,4 +19,5 @@ async def on_ready():
     print('Bot ready.')
 
 bot.run()
+
 # .r00

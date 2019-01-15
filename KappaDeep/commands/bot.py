@@ -20,22 +20,5 @@ class Bot(GroupMixin, KappaDeep.Client):
         self.extensions = {}
         self.description = inspect.cleandoc(description) if description else ''
 
-    # def add_cog(self, cog):
-    #     '''Adds a "cog" to the bot.'''
-    #     self.cogs[type(cog).__name__] = cog
-
-    #     try:
-    #         check = getattr(cog, '_{.__class__.__name__}__check'.format(cog))
-    #     except AttributeError:
-    #         pass
-    #     else:
-    #         self.add_check(check)
-
-    #     members = inspect.getmembers(cog)
-    #     for name, member in members:
-    #         if isinstance(member, Command):
-    #             if member.parent is None:
-    #                 self.add_command(member)
-    #             continue
 
 # .r00

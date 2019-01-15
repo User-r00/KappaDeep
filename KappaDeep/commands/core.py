@@ -7,7 +7,7 @@ Documentation.
 
 import asyncio
 
-__all__ = ['Command']
+__all__ = ['Command', 'GroupMixin', 'command']
 
 
 class Command:
