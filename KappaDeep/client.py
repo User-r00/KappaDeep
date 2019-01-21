@@ -49,6 +49,11 @@ class Client:
         finally:
             self.loop.close()
 
+    async def invoke(self, coro, *args, **kwargs):
+        '''Invoke a command.'''
+        future = asyncio.run_coroutine_threadsafe(coro, loop)
+        return future
+
     @property
     def is_closed(self):
         '''Define if bot is running.'''
