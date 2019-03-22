@@ -14,6 +14,13 @@ bot = bot.Bot(prefix='!',
               nick=C.NICK,
               channel=C.CHANNEL,
               twitch_token=C.TWITCH_TOKEN)
+
+
+@command(name=test)
+async def():
+    '''Test command.'''
+    bot.say('Testing...')
+
 bot.run()
 
 # .r00
