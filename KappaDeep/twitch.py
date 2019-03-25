@@ -44,7 +44,7 @@ class Connection:
             self.writer.write(f'JOIN #{self.channel}\r\n'.encode('utf-8'))
             await self.writer.drain()
 
-            await self.send('I\'m here to touch butts and party.')
+            await self.send('Number five...is alive!')
             await self.writer.drain()
 
             await self.process()

@@ -2,9 +2,10 @@
 # -*- coding: utf-8 -*-
 
 
-class Command():
+class Group():
     def __init__(self, name, **kwargs):
         self.name = name
-        self.response = kwargs.get('response')
+        self.lights = kwargs.get('lights')
 
-# r00
+
+# .r00
