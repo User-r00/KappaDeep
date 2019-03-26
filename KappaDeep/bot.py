@@ -4,7 +4,7 @@
 import re
 import _thread
 
-import config
+from config import config
 from irc import IRC
 from color import Color
 from command import Command

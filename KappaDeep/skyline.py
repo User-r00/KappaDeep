@@ -29,13 +29,14 @@ class Skyline():
         a dict. These are not modifiable via chat. At least not in a
         permanent way. SQLite3?'''
         self.colors = {
-            'red': Color('red', hue=0, bri=200),
-            'orange': Color('orange', hue=6000),
-            'yellow': Color('yellow', hue=8000),
-            'green': Color('green', hue=20000),
-            'blue': Color('blue', hue=44000),
-            'pink': Color('pink', hue=5000, sat=150),
-            'purple': Color('purple', hue=55000)
+            'red': Color('red', hue=0, bri=150),
+            'orange': Color('orange', hue=5000, bri=200),
+            'yellow': Color('yellow', hue=11000, bri=200),
+            'green': Color('green', hue=23000, bri=200),
+            'blue': Color('blue', hue=45000, bri=230),
+            'pink': Color('pink', hue=59000, bri=210),
+            'purple': Color('purple', hue=50000),
+            'white': Color('white', bri=75, sat=0)
         }
 
     def turn_on(self, light_name):
@@ -96,9 +97,8 @@ class Skyline():
 
     def rainbow(self, light_name):
         '''Cycle lights through various colors.'''
-        for _ in range(0, 3):
-            for color in self.colors.keys():
-                self.set_color(light_name, color)
-                sleep(.5)
+        for color in self.colors.keys():
+            self.set_color(light_name, color)
+            # sleep(.5)
 
 # r00

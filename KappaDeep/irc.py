@@ -9,7 +9,7 @@ import sys
 from time import sleep
 from urllib import request
 
-import config
+from config import config
 
 
 class COLORS:
@@ -62,7 +62,7 @@ class IRC:
         self.irc.send(f'PASS {config.TWITCH_TOKEN}\r\n'.encode('utf-8'))
         self.irc.send(f'NICK {nick}\r\n'.encode('utf-8'))
         self.irc.send(f'JOIN #{channel}\r\n'.encode('utf-8'))
-        self.chat('Number 5 is alive.!')
+        self.chat('Number 5 is alive!')
 
     def receive(self):
         '''Receive messages sent to the IRC channel.'''
