@@ -22,7 +22,7 @@ def main():
 
     stream_room = Group('Stream Room',
                         lights=[
-                            'Roo side table',
+                            'Roo side table', 
                             'Lunar side table',
                             'Desk Portrait Left',
                             'Desk Portrait Right'

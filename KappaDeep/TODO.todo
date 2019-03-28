@@ -1,0 +1,15 @@
+# TODO
+
+IRC async conversion
+ ☐ Convert irc receive.
+ ☐ On_message()
+ ☐ Convert fill_user_list.
+
+ Skyline async conversion
+ ☐ Convert skyline.
+
+Global tasks
+ ☐ Ban command.
+ ☐ Timeout command.
+ ☐ Command harness.
+
