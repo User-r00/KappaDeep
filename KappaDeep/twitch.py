@@ -1,93 +1,79 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+"""Twitch class."""
+
 import asyncio
+import socket
 
+import config
 
-class Connection:
-    '''Represents a Twitch chat connection.
+class Twitch():
+    """A class representing a connection to a Twitch IRC chat room."""
 
-    Attributes
-    -----------
-    host : str
-        The server address to connect to.
-    port : int
-        The server port to connect to.
-    channel : str
-        The Twitch user channel where the bot will function.
-    nick : str
-        The username of the bot's Twitch account.
-    token : str
-        An OAuth token obtain from Twitch.
-    '''
+    def __init__(self, HOST, PORT, NICK, PASS, CHAN):
+        """Init."""
+        self.HOST = HOST
+        self.PORT = PORT
+        self.NICK = NICK
+        self.PASS = PASS
+        self.CHAN = CHAN
+        self.irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    def __init__(self, loop=None, **kwargs):
-        self.loop = asyncio.get_event_loop() if loop is None else loop
-        self.host = kwargs.get('host')
-        self.port = kwargs.get('port')
-        self.channel = kwargs.get('channel')
-        self.nick = kwargs.get('nick')
-        self.token = kwargs.get('twitch_token')
-        self._is_ready = asyncio.Event(loop=self.loop)
-        self._closed = asyncio.Event(loop=self.loop)
-
-    async def create_connection(self):
-        '''Connect to Twitch and send a test message.'''
-        self.reader, self.writer = await asyncio.open_connection(self.host, self.port)
-        if self.reader and self.writer:
-            self.writer.write(f'PASS {self.token}\r\n'.encode('utf-8'))
-            await self.writer.drain()
-
-            self.writer.write(f'NICK {self.nick}\r\n'.encode('utf-8'))
-            await self.writer.drain()
-
-            self.writer.write(f'JOIN #{self.channel}\r\n'.encode('utf-8'))
-            await self.writer.drain()
-
-            await self.send('Number five...is alive!')
-            await self.writer.drain()
-
-            await self.process()
-        else:
-            print('Unable to connect to Twitch.')
+    async def connect(self):
+        """Connect to Twitch IRC room."""
+        print(f'Connecting to {self.CHAN} on port {self.PORT}.')
+        try:    
+            # Create socket
+            # self.irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.irc.connect((self.HOST, self.PORT))
+            self.irc.send(f'PASS {self.PASS}\r\n'.encode('utf-8'))
+            self.irc.send(f'NICK {self.NICK}\r\n'.encode('utf-8'))
+            self.irc.send(f'JOIN #{self.CHAN}\r\n'.encode('utf-8'))
+        except asyncio.CancelledError:
+            print('Cancelled.')
 
     async def run(self):
-        '''Start the Twitch connection.'''
-        await self.create_connection()
+        """Start the Twitch instance."""
+        await self.connect()
 
-    def handle_ready(self):
-        '''Set IRC to ready.'''
-        self._is_ready.set()
-
-    async def process(self):
-        '''Constantly read messages from chat.'''
         while True:
             message = await self.receive()
             print(message)
             await asyncio.sleep(1)
 
-    async def send(self, message):
-        '''Send a message to chat.'''
-        self.writer.write(f'PRIVMSG #{self.channel} :{message}\r\n'.encode('utf-8'))
-        await self.writer.drain()
-
     async def receive(self):
-        '''Fetch messages from chat.'''
-        data = await self.reader.read(2040)
-        return data.decode('utf-8')
+        """Read messages from Twitch chat."""
+        message = self.irc.recv(2040).decode('utf-8')
+        return message
 
-    async def is_ping(self, message):
-        '''Check if message is a ping from Twitch remote.'''
-        if message.startswith('PING'):
-            await self.respond_to_ping(message)
-        else:
-            return False
+    async def chat(self, msg):
+        """Send a message to a channel."""
+        self.irc.send(f'PRIVMSG #{self.CHAN} :{msg}\r\n'.encode('utf-8'))
 
-    async def respond_to_ping(self, message):
-        '''Notify remote we are still alive.'''
-        await self.send('PONG :tmi.twitch.tv\r\n'.encode('utf-8'))
 
-    @property
-    def is_closed(self):
-        '''Check if IRC is closed.'''
-        return self._closed.is_set()
+    async def _get_url(loop, url):
+        async with aiohttp.ClientSession() as session:
+            response = await session.get()
+
+    def fill_op_list(self):
+        while True:
+            """Fill OP list."""
+            URL = 'http://tmi.twitch.tv/group/user/r00__/chatters'
+            data = yield from _get_url(self.loop, URL)
+
+            self.viewer_count = data['chatter_count']
+            self.mods = data['chatters']['moderators']
+            self.staff = data['chatters']['staff']
+            self.admins = data['chatters']['admins']
+            self.global_mods = data['chatters']['global_mods']
+
+            print(f'Viewer count: {self.viewer_count}')
+            print(f'Mods: {self.mods}')
+            print(f'Staff: {self.staff}')
+            print(f'Admins: {self.admins}')
+            print(f'Global Mods: {self.global_mods}')
+
+        asyncio.sleep(60)
+
+# r00

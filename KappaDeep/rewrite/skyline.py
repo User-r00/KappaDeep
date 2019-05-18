@@ -19,7 +19,7 @@ class Skyline():
         self.lights = self.bridge.get_light_objects('name')
         self.colors = {}
 
-    async def start(self):
+    def start(self):
         '''Run setup tasks.'''
         self.generate_colors()
 
