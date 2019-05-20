@@ -1,7 +1,7 @@
 #!usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-'''Skyline - Philips Hue integrationg for KappaDeep.'''
+"""Philips Hue integrationg for KappaDeep."""
 
 import json
 from time import sleep
@@ -10,9 +10,13 @@ import config
 from color import Color
 from phue import Bridge
 
+"""Philips Hue bridge class."""
 
-class Skyline():
+class Hue:
+    """Hue base class."""
+
     def __init__(self, IP):
+        """Init."""
         self.IP = IP
         self.bridge = Bridge(self.IP)
         self.connect = self.bridge.connect()
@@ -20,14 +24,11 @@ class Skyline():
         self.colors = {}
 
     def start(self):
-        '''Run setup tasks.'''
+        """Run setup tasks."""
         self.generate_colors()
 
     def generate_colors(self):
-        '''Fill the color bank.
-        Think of a better way to store these. They are hard-coded and stuck in
-        a dict. These are not modifiable via chat. At least not in a
-        permanent way. SQLite3?'''
+        """Fill the color bank."""
         self.colors = {
             'red': Color('red', hue=0, bri=150),
             'orange': Color('orange', hue=5000, bri=200),
@@ -40,15 +41,15 @@ class Skyline():
         }
 
     def turn_on(self, light_name):
-        '''Turn on a light.'''
+        """Turn on a light."""
         self.lights[light_name].on = True
 
     def turn_off(self, light_name):
-        '''Turn off a light.'''
+        """Turn off a light."""
         self.lights[light_name].on = False
 
     def get_all_light_status(self):
-        '''Print the connection status of all lights.'''
+        """Print the connection status of all lights."""
         print('Light status')
         print('============')
         for light_name in self.lights.keys():
@@ -59,7 +60,7 @@ class Skyline():
             print(f'{light_name}: {reachable}')
 
     def blink_light(self, light_name):
-        '''Blink a light once.'''
+        """Blink a light once."""
         light = self.lights[light_name]
         is_on = light.on
         if is_on:
@@ -72,7 +73,7 @@ class Skyline():
             self.turn_off(light.name)
 
     def set_color(self, light_name, color):
-        '''Turn on a light then sets the color.'''
+        """Turn on a light then sets the color."""
         # Turn the light on in case it isn't already.
         light_list = light_name
         if isinstance(light_name, str):
@@ -96,7 +97,7 @@ class Skyline():
                 self.bridge.set_light(light_name, {'hue': color.hue})
 
     def rainbow(self, light_name):
-        '''Cycle lights through various colors.'''
+        """Cycle lights through various colors."""
         for color in self.colors.keys():
             self.set_color(light_name, color)
             # sleep(.5)
