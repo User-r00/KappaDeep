@@ -3,9 +3,10 @@
 
 """Skyline - Philips Hue integration for KappaDeep."""
 
-import ..integrations.color as Color
-import ..integrations.group as Group
-import ..integrations.hue as Hue
+from color import Color
+from group import Group
+# from hue import Hue
+
 from twitchio.ext import commands
 
 @commands.cog()
