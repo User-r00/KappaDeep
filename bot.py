@@ -9,7 +9,7 @@ from config import config
 from tokens import tokens
 
 startup_extensions = ['extensions.general',
-                      'extensions.skyline']
+                      'integrations.skyline']
 
 bot = commands.Bot(irc_token=tokens.TWITCH_TOKEN,
                    nick=config.NICK,

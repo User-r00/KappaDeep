@@ -7,7 +7,7 @@ import json
 from time import sleep
 
 import config
-from color import Color
+from integrations.color import Color
 from phue import Bridge
 
 """Philips Hue bridge class."""
@@ -82,7 +82,7 @@ class Hue:
             light = self.lights[light]
             light.on = True
 
-            # Check how the color was passed in. This could be either an 
+            # Check how the color was passed in. This could be either an
             # integer or string.
             if isinstance(color, str):
 

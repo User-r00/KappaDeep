@@ -3,14 +3,15 @@
 
 """Skyline - Philips Hue integration for KappaDeep."""
 
-from color import Color
-from group import Group
-# from hue import Hue
+from integrations.color import Color
+from integrations.group import Group
+from extensions.hue import Hue
+from config import config
 
 from twitchio.ext import commands
 
 @commands.cog()
-class Skyline:  
+class Skyline:
     """Skyline base class."""
 
     stream_room = Group('Bedroom',
