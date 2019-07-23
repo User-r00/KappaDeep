@@ -16,8 +16,8 @@ class General:
     @commands.command(name='socials', aliases=['twitter', 'instagram', 'insta'])
     async def social_command(self, ctx):
         """Send social links."""
-        twitter = 'https://www.twitter.com/user_r00'
-        insta = 'https://www.instagram.com/user_r00'
+        twitter = 'https://www.twitter.com/DarkPlagueDr'
+        insta = 'https://www.instagram.com/DarkPlagueDr'
         await ctx.send(f'Follow me on Twitter: {twitter} or Instagram: '
                        f'{insta} .')
 

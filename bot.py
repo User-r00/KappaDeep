@@ -9,6 +9,7 @@ from config import config
 from tokens import tokens
 
 startup_extensions = ['extensions.general',
+                      'extensions.obs',
                       'extensions.skyline']
 
 bot = commands.Bot(irc_token=tokens.TWITCH_TOKEN,
@@ -22,11 +23,12 @@ async def event_ready():
   msg = f'{config.NICK} ready for duty! Batteries not included.'
   print(msg)
 
-# DIS BROKE. NO WORK.
 @bot.event
-async def event_usernotice_subscription(metadata):
-  """Run when someone subs."""
-  print('SUBSCRIBBUMS!')
+async def event_message(message):
+  """Print messages."""
+  print(message._raw_data)
+
+  await bot.handle_commands(message)
 
 if __name__ == '__main__':
     for extension in startup_extensions:
