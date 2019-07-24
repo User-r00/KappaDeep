@@ -25,8 +25,5 @@ class OBS:
             scene = scene.lower()
             with open('scene.txt', 'w') as f:
                 if scene in allowed_scenes:
-                    print('Allowed.')
                     f.write(scene)
-
-
 

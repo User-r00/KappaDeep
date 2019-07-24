@@ -10,7 +10,8 @@ from tokens import tokens
 
 startup_extensions = ['extensions.general',
                       'extensions.obs',
-                      'extensions.skyline']
+                      'extensions.skyline',
+                      'extensions.streamelements']
 
 bot = commands.Bot(irc_token=tokens.TWITCH_TOKEN,
                    nick=config.NICK,
@@ -26,7 +27,7 @@ async def event_ready():
 @bot.event
 async def event_message(message):
   """Print messages."""
-  print(message._raw_data)
+  # print(message._raw_data)
 
   await bot.handle_commands(message)
 
