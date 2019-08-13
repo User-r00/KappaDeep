@@ -9,8 +9,10 @@ from config import config
 from tokens import tokens
 
 startup_extensions = ['extensions.general',
+                      'extensions.obs',
                       'extensions.sfx',
-                      'extensions.skyline']
+                      'extensions.skyline',
+                      'extensions.streamelements']
 
 bot = commands.Bot(irc_token=tokens.TWITCH_TOKEN,
                    nick=config.NICK,
@@ -20,9 +22,16 @@ bot = commands.Bot(irc_token=tokens.TWITCH_TOKEN,
 
 @bot.event
 async def event_ready():
-    """Run when bot loads."""
-    msg = f'{config.NICK} ready for duty! Batteries not included.'
-    print(msg)
+  """Run when bot loads."""
+  msg = f'{config.NICK} ready for duty! Batteries not included.'
+  print(msg)
+
+@bot.event
+async def event_message(message):
+  """Print messages."""
+  # print(message._raw_data)
+
+  await bot.handle_commands(message)
 
 if __name__ == '__main__':
     for extension in startup_extensions:
