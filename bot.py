@@ -9,12 +9,14 @@ from config import config
 from tokens import tokens
 
 startup_extensions = ['extensions.general',
+                      'extensions.sfx',
                       'extensions.skyline']
 
 bot = commands.Bot(irc_token=tokens.TWITCH_TOKEN,
                    nick=config.NICK,
                    prefix=config.PREFIX,
                    initial_channels=[config.CHAN])
+
 
 @bot.event
 async def event_ready():
