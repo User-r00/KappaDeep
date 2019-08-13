@@ -11,3 +11,7 @@ config.py
 *.db
 __pycache__
 */__pycache__
+
+tokens/*
+config/*
+scene.txt
