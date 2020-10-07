@@ -17,7 +17,8 @@ class Bot(commands.Bot):
                          client_id=os.environ['CLIENT_ID'],
                          nick=os.environ['BOT_NICK'],
                          prefix=os.environ['BOT_PREFIX'],
-                         initial_channels=[[os.environ['CHANNEL']]])
+                         initial_channels=['spaceboyr00'])
+
 
     # Events don't need decorators when subclassed
     async def event_ready(self):
@@ -38,10 +39,24 @@ class Bot(commands.Bot):
     async def reboot_command(self, ctx):
         await ctx.send('Rebooting. Time me.')
         
-        cmd = subprocess.run(['sudo', 'shutdown', '-r', 'now'])
+        cmd = subprocess.run(['shutdown', '-r', 'now'])
         if cmd.returncode != 0:
             await ctx.send('JK. I can\'t reboot for...reasons. Check my logs.')
-        
+
 if __name__ == "__main__":
     bot = Bot()
+    
+    startup_extensions = ['extensions.general',
+                          'extensions.obs',
+                          'extensions.sfx',
+                          'extensions.skyline',
+                          'extensions.streamelements']
+      
+      # for extension in startup_extensions:
+      #   try:
+      #       bot.load_module(extension)
+      #   except Exception as e:
+      #       exc = '{}: {}'.format(type(e).__name__, e)
+      #       print(f'[ERR] Can\'t load extension {extension}\n{exc}')
+      
     bot.run()
