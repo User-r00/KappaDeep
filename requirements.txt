@@ -1,0 +1,11 @@
+aiohttp==3.6.2
+async-timeout==3.0.1
+attrs==20.2.0
+chardet==3.0.4
+idna==2.10
+multidict==4.7.6
+python-dotenv==0.14.0
+twitchio @ git+https://github.com/TwitchIO/TwitchIO.git@6f338ec38605630f1bacf57ff15e6a5b9b0263a7
+typing-extensions==3.7.4.3
+websockets==8.1
+yarl==1.6.0
