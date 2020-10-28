@@ -3,44 +3,50 @@
 
 """General commands for KappaDeep."""
 
+import os
 from twitchio.ext import commands
+
 
 @commands.cog()
 class General:
-    """Skyline base class."""
+    """General command base class."""
 
     def __init__(self, bot):
         """Init."""
         self.bot = bot
 
-    @commands.command(name='socials', aliases=['twitter', 'instagram', 'insta'])
-    async def social_command(self, ctx):
-        """Send social links."""
-        twitter = 'https://www.twitter.com/DarkPlagueDr'
-        insta = 'https://www.instagram.com/DarkPlagueDr'
-        await ctx.send(f'Follow me on Twitter: {twitter} or Instagram: '
-                       f'{insta} .')
+    @commands.command(name='twitter')
+    async def twitter_command(self, ctx):
+        """Send Twitter profile link."""
+        twitter = os.environ['TWITTER_HANDLE']
+        url = f'https://www.twitter.com/{twitter}'
+        await ctx.send(f'Read my hot garbage on Twitter at {url}!')
+
+    @commands.command(name='instagram', aliases=['insta'])
+    async def instagram_command(self, ctx):
+        """Send Instagram profile link."""
+        instagram = os.environ['INSTA_HANDLE']
+        url = f'https://www.instagram.com/{instagram}'
+        await ctx.send(f'Lewd behind the scenes action at {url}!')
+
+    @commands.command(name='onlyfans')
+    async def onlyfans_command(self, ctx):
+        """Send OnlyFans profile link."""
+        msg = 'Just DM me. First b-hole pic is free. Buy 3 and get a free' \
+              ' 32 oz. iced coffee.'
+        await ctx.send(msg)
 
     @commands.command(name='address')
     async def address_command(self, ctx):
         """Send address."""
-        await ctx.send('Shirts, spandex, and glitter bombs can be sent to P.O. '
-                       'Box 28331, San Jose CA, 95159.')
+        await ctx.send('Pokemon cards, soy milk, and glitter bombs can be '
+                       'sent to P.O. Box 28331, San Jose CA, 95159.')
 
     @commands.command(name='discord')
     async def discord_command(self, ctx):
         """Send Discord invite link."""
-        URL = 'https://discord.gg/hZNZBjp'
-        await ctx.send(f'Props, programming, games, and frozen bananas await! '
-                       f'Come hang out in Discord at {URL} !')
-
-    @commands.command(name='donate', aliases=['money', 'payme', 'tip'])
-    async def donate_command(self, ctx):
-        """Send donate link."""
-        URL = 'https://www.streamlabs.com/r00__'
-        await ctx.send(f'Donations are NEVER expected. But, if you decide '
-                       f'that you want to share your hard-earned bucks you '
-                       f'can do so at {URL} .')
+        URL = 'https://discord.gg/cdchWJW'
+        await ctx.send(f'Enter at your own risk. Join the Discord at {URL} !')
 
     @commands.command(name='repo', aliases=['code', 'github', 'git'])
     async def repo_command(self, ctx):
